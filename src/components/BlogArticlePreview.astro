@@ -1,0 +1,41 @@
+---
+// BlogArticlePreview.astro
+interface Props {
+  title: string;
+  excerpt: string;
+  imageUrl: string;
+  imageAlt: string;
+  publishDate: string;
+  link: string;
+}
+
+const { title, excerpt, imageUrl, imageAlt, publishDate, link } = Astro.props;
+
+const formattedDate = new Date(publishDate).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<article class="bg-white rounded-lg shadow-md overflow-hidden">
+  <a href={link}>
+    <img src={imageUrl} alt={imageAlt} class="w-full h-48 object-cover object-center hover:opacity-90 transition-opacity" loading="lazy" />
+  </a>
+  <div class="p-4">
+    <h2 class="text-xl font-semibold text-gray-800 mb-2">
+      <a href={link} class="hover:text-primary transition-colors">{title}</a>
+    </h2>
+    <p class="text-gray-600 text-sm mb-4">{excerpt}</p>
+    <div class="flex items-center justify-between">
+      <span class="text-gray-500 text-xs">{formattedDate}</span>
+      <a href={link} class="text-primary hover:text-primary-dark transition-colors font-semibold">Read More</a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .text-primary {
+    color: theme('colors.rose.600'); /* Use your primary color */
+  }
+
+  .text-primary-dark {
+    color: theme('colors.rose.700');
+  }
+</style>

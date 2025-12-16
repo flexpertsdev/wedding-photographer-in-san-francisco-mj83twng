@@ -1,0 +1,25 @@
+---
+// Testimonial.astro
+interface Props {
+  quote: string;
+  author: string;
+  authorTitle: string;
+  imageUrl: string;
+  imageAlt: string;
+}
+
+const { quote, author, authorTitle, imageUrl, imageAlt } = Astro.props;
+---
+
+<div class="bg-white rounded-lg shadow-md p-6">
+  <div class="flex items-center mb-4">
+    <img src={imageUrl} alt={imageAlt} class="w-12 h-12 rounded-full object-cover mr-4" loading="lazy" />
+    <div>
+      <p class="font-semibold text-gray-800">{author}</p>
+      <p class="text-gray-500 text-sm">{authorTitle}</p>
+    </div>
+  </div>
+  <blockquote class="text-gray-700 italic">
+    <p>"{quote}"</p>
+  </blockquote>
+</div>

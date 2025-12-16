@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BlogPostPreview from '../../components/BlogPostPreview.astro'; //Component for displaying blog post previews
+import Layout from '../../layouts/BaseLayout.astro';
+
+
+const posts = await getCollection('blog', { filter: (post) => post.data.draft !== true }); //Fetch posts. Consider filtering out drafts
+
+// Sort posts by date (newest first)
+posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<Layout title="Wedding Photography Blog" description="Get inspired for your big day with our wedding photography blog!">
+  <main>
+    <h1>Wedding Photography Blog</h1>
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <BlogPostPreview post={post} />
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 2rem;
+  }
+</style>

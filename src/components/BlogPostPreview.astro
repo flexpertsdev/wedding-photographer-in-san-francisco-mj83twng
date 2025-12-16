@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+};
+
+const { post } = Astro.props as Props;
+const { title, description, heroImage, heroImageAlt } = post.data;
+const postUrl = `/blog/${post.slug}`;
+---
+
+<article class="blog-post-preview">
+  <a href={postUrl}>
+    <img src={heroImage} alt={heroImageAlt} width="600" height="400" loading="lazy">
+    <h2>{title}</h2>
+    <p>{description}</p>
+  </a>
+</article>
+
+<style>
+.blog-post-preview a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.blog-post-preview img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.blog-post-preview h2 {
+  margin-bottom: 0.25rem;
+}
+</style>
